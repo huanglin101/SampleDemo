@@ -1,0 +1,12 @@
+/target/
+/*.log
+/.settings/
+/.classpath
+/.project
+/.springBeans
+/logs/
+/.apt_generated/
+/bin
+/.factorypath
+/src/main/resources/static/
+/LOG_PATH_IS_UNDEFINED
