@@ -1,22 +1,20 @@
 package com.demo.mybatis.controller;
 
-import javax.sql.DataSource;
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import com.demo.entity.TCustomer;
-import com.demo.mapper.CustomerMapper;
+import com.demo.mapper.TCustomerMapper;
 
 /**
  * mybatis 事务
@@ -29,35 +27,35 @@ public class MybaitTranController {
 	private SqlSessionFactory sqlSessionFactory;
 	
 	@Autowired
-	private CustomerMapper customerMapper;
+	private TCustomerMapper customerMapper;
 	
 	@Autowired
     private PlatformTransactionManager ptm;
-	
-	@Autowired 
-	private DataSource dataSource;
 	   
+	private Logger logger=LoggerFactory.getLogger(this.getClass());
 	
 	@Transactional
 	public void tranTest() {
+		
 		try {
 			TCustomer tCustomer=new TCustomer();
 			customerMapper.insert(tCustomer);
 		
 		} catch (Exception e) {
-			System.err.println(e);
+			logger.error("error",e);
 		}
 	}
 	
 	public void sqlSessionTest() {
 		SqlSession	session =sqlSessionFactory.openSession(false);//禁止自动提交开启事物
 		try {
-			CustomerMapper sessMapper=session.getMapper(CustomerMapper.class);
+			TCustomerMapper sessMapper=session.getMapper(TCustomerMapper.class);
 			TCustomer tCustomer=new TCustomer();
 			sessMapper.insert(tCustomer);
 			session.commit();
 		} catch (Exception e) {
 			session.rollback();
+			logger.error("error",e);
 		}
 		
 		session.close();
@@ -72,6 +70,7 @@ public class MybaitTranController {
 			customerMapper.insert(tCustomer);
 			ptm.commit(status);	
 		} catch (Exception e) {
+			logger.error("error",e);
 			ptm.rollback(status);
 		}
 	}
@@ -89,6 +88,7 @@ public class MybaitTranController {
 					customerMapper.insert(tCustomer);	
 				} catch (Exception e) {
 					status.setRollbackOnly();
+					logger.error("error",e);
 				}
 				
 			}
