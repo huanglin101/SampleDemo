@@ -12,3 +12,26 @@ spring:
     testOnBorrow: false
     testWhileIdle: true
     testOnReturn: false
+  #redis
+  redis: 
+    host: 10.9.4.224
+    port: 6379
+    password: 
+    defaultExpireDay: 45
+    paperRedisIndex: 1
+    examRedisIndex: 2
+    areaRedisIndex: 3
+    # 最小连接数目
+    maxIdle: 50   
+    # 最大数连接数
+    maxActive: 1000 
+    #立连接等待时间
+    maxWait: 1000
+    #连接是否可用
+    testOnBorrow: true
+ 
+server: 
+  port: 8068
+  
+
+
