@@ -64,18 +64,21 @@ public class ClientDaoImpl implements ClientMapper{
         return clientList.get(0);
     }
 
-    @Override
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
     public List<Client> findAll() {
         String sql = "select id, client_name, client_id, client_secret from oauth2_client";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper(Client.class));
     }
 
 
-    @Override
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
     public Client findByClientId(String clientId) {
         String sql = "select id, client_name, client_id, client_secret from oauth2_client where client_id=?";
-        List<Client> clientList = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Client.class), clientId);
-        if(clientList.size() == 0) {
+      
+		List<Client> clientList = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Client.class), clientId);
+        if(clientList.isEmpty()) {
             return null;
         }
         return clientList.get(0);

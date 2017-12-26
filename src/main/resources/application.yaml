@@ -29,9 +29,18 @@ spring:
     maxWait: 1000
     #连接是否可用
     testOnBorrow: true
+    
+  http:  
+      encoding.charset: UTF-8  
+      encoding.enable: true  
+      encoding.force: true
+      
+  mvc: 
+      view:  
+          prefix: /WEB-INF/jsp/  
+          suffix: .jsp  
  
 server: 
   port: 8068
-  
-
+   
 
