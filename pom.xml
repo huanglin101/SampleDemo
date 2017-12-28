@@ -118,15 +118,12 @@
   
      </dependency>  
   
-     <dependency>  
-  
-         <groupId>org.apache.tomcat.embed</groupId>  
-  
-         <artifactId>tomcat-embed-jasper</artifactId>  
-  
-         <scope>provided</scope>  
-  
+     <dependency>    
+         <groupId>org.apache.tomcat.embed</groupId>    
+         <artifactId>tomcat-embed-jasper</artifactId>    
+         <scope>provided</scope>   
      </dependency>
+     
      <dependency>
      	<groupId>javax.servlet</groupId>
      	<artifactId>jstl</artifactId>
@@ -135,15 +132,7 @@
   </dependencies>
   
   	<build>
-  	<resources>
-  		<resource>
-		    <directory>src/main/webapp</directory>
-		    <targetPath>META-INF/resources</targetPath>		    
-		    <includes>
-		        <include>**/**</include>
-		    </includes>
-		</resource>
-  	</resources>
+  	
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
